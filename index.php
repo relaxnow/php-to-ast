@@ -33,6 +33,8 @@ if (!file_exists($directory)) {
 
 $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
 
+$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+
 $files = [];
 /** @var DirectoryIterator $file */
 foreach ($rii as $file) {
@@ -49,7 +51,6 @@ foreach ($rii as $file) {
 
     $code = file_get_contents($file);
 
-    $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 
     try {
         $stmts = $parser->parse($code);
